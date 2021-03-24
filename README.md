@@ -35,12 +35,33 @@ public class UserServiceImpl implements UserService {
 }
 ```
 
-3. 调用方法
+3. nginx.conf
 
-  默认根据tenantMode决定租户数据源，
-  每个微服务可以使用下文中的[可选方法](#jump)自定义
+```
+server {
+        listen       8080;
+        server_name ~^(?<name>.+)\.zhouxiaoxing\.top;
+        charset utf-8;
+    
+        location / {
+          proxy_pass http://localhost:8081;
+          proxy_redirect off;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header tenantId $name;
+          client_max_body_size 1024m;
+          client_body_buffer_size        128k;
+          proxy_buffer_size              128k;
+          proxy_buffers                  16 128k;
+          proxy_busy_buffers_size        512k;
+          proxy_temp_file_write_size     512k;
+        }
+}
 
-  ![](images/call.png)
+4. 通过tenant1.zhouxiaoxiang.top进入租户1
+
+```
 
 ## 管理数据源
 
@@ -117,24 +138,4 @@ DELETE /datasources
 
 ![](images/delete.png)
 
-## 可选方法<span id="jump"/>
-
-  支持每个微服务自定义租户数据源的获取方式
-
-```java
-import org.springframework.context.annotation.Configuration;
-
-@Configuration
-public class configuration {
-    @Bean
-    public DsProcessor dsProcessor(){
-        return new TenantProcessor(){
-            @Override
-            public String doDetermineDatasource(MethodInvocation invocation,String key){
-                // ...
-                return "自定义数据源的名字";
-            }
-        };
-    }   
-}
 ```

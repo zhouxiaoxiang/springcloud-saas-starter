@@ -63,6 +63,7 @@ server {
 
 4. 用户访问
 
+  通过zhouxiaoxiang.top进入管理控制台
   通过tenant1.zhouxiaoxiang.top进入租户1
   通过tenant2.zhouxiaoxiang.top进入租户2
 

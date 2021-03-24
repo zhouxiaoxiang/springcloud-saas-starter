@@ -1,13 +1,15 @@
 # springcloud-saas-starter
 
-  此处只是方案说明，代码不便公开。
+  增加一个starter即可，此处只是方案说明，由于编写这套软件时所在公司的文化限制，代码不能公开。
 
-- 支持基于springboot的多租户数据源方案
+## 软件环境
+
+- 支持基于spring cloud微服务多租户
 - 支持 **Jdk 1.8+, SpringBoot 2.x.x**
 
 ## 使用方法
 
-1. pom.xml中增加
+1. 所有微服务的pom.xml中增加
 
 ```xml
         <dependency>
@@ -17,18 +19,18 @@
         </dependency>
 ```
 
-2. 增加 **@TENANT** 支持多租户
+2. 使用 **@TENANT** 支持多租户
 
 |       注解        |         结果         |
-| :---------------: | :-----------------: |
+| :---------------: | :-----------------:  |
 |    没有@TENANT    |     默认数据源       |
 |    @TENANT       |    使用租户数据源     |
 
 ```java
+@TENANT 
 @Service
 public class UserServiceImpl implements UserService {
   @Override
-  @TENANT 
   public List selectByCondition() {
       return null;
   }
@@ -59,7 +61,10 @@ server {
         }
 }
 
-4. 通过tenant1.zhouxiaoxiang.top进入租户1
+4. 用户访问
+
+  通过tenant1.zhouxiaoxiang.top进入租户1
+  通过tenant2.zhouxiaoxiang.top进入租户2
 
 ```
 

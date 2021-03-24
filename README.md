@@ -1,7 +1,9 @@
 # springcloud-saas-starter
 
   增加一个starter即可，此处只是方案说明。
+
   由于编写这套软件所在公司的文化限制，代码不能公开。
+
   一个公司最大的价值，其实不是代码。
 
 ## 软件环境
@@ -67,8 +69,11 @@ server {
 4. 用户访问
 
   通过zhouxiaoxiang.top进入管理控制台
+
   通过tenant1.zhouxiaoxiang.top进入租户1
+
   通过tenant2.zhouxiaoxiang.top进入租户2
+
 
 ## 管理数据源
 
